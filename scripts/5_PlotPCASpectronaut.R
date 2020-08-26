@@ -73,6 +73,9 @@ cumuvarplot = expVar %>%
   pivot_longer(cols = contains("exp"),
                values_to = "var",
                names_to = "key") %>%
+  mutate(key = case_when(key == "cum_var_exp" ~ "Cumulative Explained Variance",
+                         key == "var_exp" ~ "Explained Variance",
+                         TRUE ~ as.character(key))) %>% 
   ggplot(aes(x = factor(pc,levels = pc %>% unique() %>% str_sort(numeric = T)),
              y = var,
              group = key)) +
@@ -87,4 +90,8 @@ cumuvarplot = expVar %>%
 # saving previous plot
 ggsave("./plot/spectronautCumuvarplot.svg",
        plot=cumuvarplot,
-       width = 8, height = 5)
+       width = 8.5, height = 5)
+
+ggsave("./plot/spectronautCumuvarplot.png",
+       plot=cumuvarplot,
+       width = 8.5, height = 5)

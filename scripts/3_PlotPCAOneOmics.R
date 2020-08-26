@@ -32,5 +32,6 @@ pcaOneOmics %>%
                                 "TP3" = "#4E79A7",
                                 "TP4" = "#59A14F")) +
   guides(colour = guide_legend(order = 1), 
-         shape = guide_legend(order = 2))
+         shape = guide_legend(order = 2)) +
+  ggtitle("A")
 dev.off()

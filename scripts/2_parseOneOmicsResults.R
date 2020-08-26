@@ -90,10 +90,11 @@ oneomicsLong2 %>%
                                 "down" = "#4E79A7",
                                 "no" = "grey30")) +
   xlab("Log2(Fold Change)") +
-  ylab("-Log10(Adjusted P)")
+  ylab("-Log10(Adjusted P)") +
+  ggtitle("C")
 dev.off()
 
-# # plotting heatmap
+# plotting heatmap
 heatColors = colorRamp2(c(-4,0,4), colors = c("#4E79A7", "white", "#E15759"))
 M = oneomics %>% select(contains("lfc")) %>% as.matrix()
 colnames(M) = str_replace(colnames(M), "lfc_", "")
@@ -107,3 +108,30 @@ Heatmap(M,
           title = "LFC",
           border = T))
 dev.off()
+
+# getting number of differentially expressed genes
+oneomicsLong2 %>% filter(timepoint == "TP2 vs. TP1") %>% select(sigStatus) %>% table()
+oneomicsLong2 %>% filter(timepoint == "TP3 vs. TP1") %>% select(sigStatus) %>% table()
+oneomicsLong2 %>% filter(timepoint == "TP4 vs. TP1") %>% select(sigStatus) %>% table()
+
+# plotting a venn diagram
+venn = list()
+venn$`TP2 vs TP1` = oneomicsLong2 %>%
+  filter(timepoint == "TP2 vs. TP1") %>% 
+  filter(sigStatus == "up" | sigStatus == "down") %>% 
+  select(locus_tag) %>% 
+  unlist(use.names = F)
+
+venn$`TP3 vs TP1` = oneomicsLong2 %>%
+  filter(timepoint == "TP3 vs. TP1") %>% 
+  filter(sigStatus == "up" | sigStatus == "down") %>% 
+  select(locus_tag) %>% 
+  unlist(use.names = F)
+
+venn$`TP4 vs TP1` = oneomicsLong2 %>%
+  filter(timepoint == "TP4 vs. TP1") %>% 
+  filter(sigStatus == "up" | sigStatus == "down") %>% 
+  select(locus_tag) %>% 
+  unlist(use.names = F)
+
+plot(venn(venn), quantities = T)

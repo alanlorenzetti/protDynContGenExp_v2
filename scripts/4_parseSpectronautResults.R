@@ -70,30 +70,6 @@ spectroLong = spectro %>%
 spectroLong = spectroLong %>% 
   filter(str_detect(string = locus_tag, pattern = ",", negate = T))
 
-# using longer dataframe, I will
-# create a wider version to be able
-# to plot heat maps using ComplxHeatmaps
-# and furthermore to unify it with
-# RNA-Seq data
-spectroWide = spectroLong %>% 
-  select(-nruns) %>% 
-  pivot_wider(names_from = c("libType", "timepoint"),
-              names_sep = "_",
-              values_from = c("mean_abundance", "se_abundance"))
-colnames(spectroWide)[-1] = sub("abundance_", "abundance_protein_", colnames(spectroWide)[-1])
-
-# adjusting locus_tags
-# according to dictProd
-# "VNG0212H"  "VNG0606G"  "VNG0779C"  "VNG0780H"  "VNG1585Cm"
-# don't have a matching sequence in pfeiLocusTag
-# those are going to be removed
-spectroWide = left_join(spectroWide, dict, by = c("locus_tag" = "query_id"))
-
-remove = spectroWide$locus_tag[is.na(spectroWide$subject_id) %>% which()]
-spectroWide = spectroWide[!(spectroWide$locus_tag %in% remove),] %>% 
-  mutate(locus_tag = subject_id) %>% 
-  select(-subject_id)
-
 # exploratory plots #####
 # generating a heat map to check
 # sample grouping

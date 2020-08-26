@@ -32,7 +32,11 @@ packs = c("tidyverse",
           "ComplexHeatmap",
           "circlize",
           "viridis",
-          "broom")
+          "broom",
+          "eulerr",
+          "DESeq2",
+          "preprocessCore",
+          "ggpubr")
 p_load(char = packs)
 
 # setting ggplot2 theme
