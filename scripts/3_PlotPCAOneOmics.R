@@ -5,9 +5,6 @@
 # with the first two principal components
 # (those with the highest variances)
 
-# loading libs #####
-source("./scripts/0_loadingLibs.R")
-
 # loading file ####
 pcaOneOmics = read_csv("./data/20200729_score_plot_PCA-PCVG.csv")
 colnames(pcaOneOmics) = c("Time Point",
@@ -21,8 +18,8 @@ pcaOneOmics = pcaOneOmics %>%
          `Run` = str_replace(sample, "^.*r[0]([1-3]).wiff.*$", "\\1"))
 
 # plotting
-svglite("plot/oneomicsPCA.svg", width = 6, height = 3.5)
-pcaOneOmics %>% 
+#svglite("plot/oneomicsPCA.svg", width = 6, height = 3.5)
+oneomicsplots$pca = pcaOneOmics %>% 
   ggplot(aes(x=PC1, y=PC2,
              color = `Time Point`,
              shape = `Bio. Replicate`)) +
@@ -34,4 +31,19 @@ pcaOneOmics %>%
   guides(colour = guide_legend(order = 1), 
          shape = guide_legend(order = 2)) +
   ggtitle("A")
+#dev.off()
+
+# arranging a panel
+oneomicsplots$row1 = ggarrange(plotlist = list(oneomicsplots$pca,
+                                               oneomicsplots$drawnht),
+                               widths = c(2,1))
+
+oneomicsplots$panel = ggarrange(plotlist = list(oneomicsplots$row1,
+                                                oneomicsplots$volcanos),
+                                nrow = 2,
+                                heights = c(1.65,1))
+# saving
+svglite(file = "plot/figureOneOmics.svg", width = 7, height = 8)
+oneomicsplots$panel
 dev.off()
+

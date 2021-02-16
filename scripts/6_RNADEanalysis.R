@@ -5,9 +5,6 @@
 # total RNA-Seq dataset and perform
 # differential expression analysis
 
-# loading libs #####
-source("./scripts/0_loadingLibs.R")
-
 # setting thresholds ####
 padjthreshold = 0.05
 log2fcthreshold = 0.75

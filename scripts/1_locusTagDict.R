@@ -19,10 +19,7 @@
 # https://www.ncbi.nlm.nih.gov/nuccore/BK010830
 # https://www.ncbi.nlm.nih.gov/nuccore/BK010831
 
-# loading libs #####
-source("./scripts/0_loadingLibs.R")
-
-# our in-house non redundant transcriptome is being loaded here
+# our in-house non redundant transcriptome is being loaded here ####
 pfeiFile = "./data/pfeiGen.fa"
 
 # path to protein database used by proteomics analysis

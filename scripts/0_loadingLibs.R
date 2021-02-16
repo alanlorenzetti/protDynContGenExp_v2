@@ -36,11 +36,29 @@ packs = c("tidyverse",
           "eulerr",
           "DESeq2",
           "preprocessCore",
-          "ggpubr")
+          "ggpubr",
+          "extrafont",
+          "ggtext")
 p_load(char = packs)
 
+# loading arial font
+font_import(prompt = F)
+loadfonts(quiet = T)
+
 # setting ggplot2 theme
-theme_set(theme_bw())
+mytheme = theme_bw() +
+  theme(
+    axis.title.x = element_markdown(family = "Arial", size = 10),
+    axis.title.y = element_markdown(family = "Arial", size = 10), 
+    text = element_text(family = "Arial", size = 10),
+    axis.text = element_text(family = "Arial", size = 10),
+    strip.text = element_text(family = "Arial", size = 10),
+    legend.title = element_text(family = "Arial", size = 10),
+    legend.text = element_text(family = "Arial", size = 10),
+    title = element_text(family = "Arial", size = 10)
+  )
+
+theme_set(mytheme)
 
 # setting working directory
 setwd("~/gdrive/documentos/doutorado/isb/protDynContGenExp_v2/")

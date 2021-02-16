@@ -6,9 +6,6 @@
 # making them ready to generate
 # scatter plots
 
-# loading libs ####
-source("./scripts/0_loadingLibs.R")
-
 # spectronaut counts vs. tpms ####
 # creating spectronaut counts wide dataset
 spectroWide = spectroLong %>% 
@@ -51,11 +48,12 @@ abundDFnormLong = abundDFnorm %>%
 abundCor = abundDFnormLong %>% 
   ggplot(aes(y = log10(protein_lysate), x = log10(rna_total))) +
   geom_point(alpha = 0.25) +
-  geom_smooth(method = "lm") +
+  geom_smooth(method = "lm",
+              color = "#4E79A7") +
   stat_cor() +
   facet_wrap(~timepoint) +
-  ylab("Log10(Protein Abundance)") +
-  xlab("Log10(TPM)")
+  ylab("Log<sub>10</sub>(Protein Abundance)") +
+  xlab("Log<sub>10</sub>(TPM)")
 
 # saving previous plot
 ggsave("./plot/abundanceCorrelation.svg",
@@ -120,11 +118,12 @@ p[["TP2"]] = relativeChangeDF %>%
            padj_mRNA_TP2 < padjthreshold) %>%
   ggplot(aes(y = log2FoldChange_protein_TP2, x = log2FoldChange_mRNA_TP2)) +
   geom_point(alpha = 0.25) +
-  geom_smooth(formula = y ~ x, method = "lm") +
+  geom_smooth(formula = y ~ x, method = "lm",
+              color = "#4E79A7") +
   stat_cor() +
   xlim(c(-6,6)) + ylim(c(-6,6)) +
-  xlab("mRNA Log2(Fold Change)") +
-  ylab("Protein Log2(Fold Change)") +
+  xlab("mRNA Log<sub>2</sub>(Fold Change)") +
+  ylab("Protein Log<sub>2</sub>(Fold Change)") +
   ggtitle("A")
 
 # TP3
@@ -135,11 +134,12 @@ p[["TP3"]] = relativeChangeDF %>%
            padj_mRNA_TP3 < padjthreshold) %>%
   ggplot(aes(y = log2FoldChange_protein_TP3, x = log2FoldChange_mRNA_TP3)) +
   geom_point(alpha = 0.25) +
-  geom_smooth(formula = y ~ x, method = "lm") +
+  geom_smooth(formula = y ~ x, method = "lm",
+              color = "#4E79A7") +
   stat_cor() +
   xlim(c(-6,6)) + ylim(c(-6,6)) +
-  xlab("mRNA Log2(Fold Change)") +
-  ylab("Protein Log2(Fold Change)") +
+  xlab("mRNA Log<sub>2</sub>(Fold Change)") +
+  ylab("Protein Log<sub>2</sub>(Fold Change)") +
   ggtitle("B")
 
 # TP4
@@ -150,11 +150,12 @@ p[["TP4"]] = relativeChangeDF %>%
            padj_mRNA_TP4 < padjthreshold) %>%
   ggplot(aes(y = log2FoldChange_protein_TP4, x = log2FoldChange_mRNA_TP4)) +
   geom_point(alpha = 0.25) +
-  geom_smooth(formula = y ~ x, method = "lm") +
+  geom_smooth(formula = y ~ x, method = "lm",
+              color = "#4E79A7") +
   stat_cor() +
   xlim(c(-6,6)) + ylim(c(-6,6)) +
-  xlab("mRNA Log2(Fold Change)") +
-  ylab("Protein Log2(Fold Change)") +
+  xlab("mRNA Log<sub>2</sub>(Fold Change)") +
+  ylab("Protein Log<sub>2</sub>(Fold Change)") +
   ggtitle("C")
 
 relChPlot = ggarrange(plotlist = p, ncol = 3, nrow = 1)
@@ -162,4 +163,4 @@ relChPlot = ggarrange(plotlist = p, ncol = 3, nrow = 1)
 # saving plot
 ggsave("./plot/relativeChangeCorrelation.svg",
        plot=relChPlot,
-       width = 10, height = 3.5)
+       width = 7, height = 3)

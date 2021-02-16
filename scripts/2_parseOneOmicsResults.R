@@ -10,9 +10,6 @@
 # replicates, therefore, only one
 # input table
 
-# loading libs ####
-source("scripts/0_loadingLibs.R")
-
 # thresholds
 padj = 0.05
 pthr = padj
@@ -41,9 +38,11 @@ oneomics = oneomics %>%
 # mlr >= 0.2
 cthr = 0.75
 mlrthr = 0.2
-oneomics = oneomics %>% 
-  filter((c_TP2 >= cthr | c_TP3 >= cthr | c_TP4 >= cthr) &
-           (mlr_TP2 >= mlrthr | mlr_TP3 >= mlrthr | mlr_TP4 >= mlrthr))
+
+oneomics = oneomics %>%
+  filter((c_TP2 >= cthr & mlr_TP2 >= mlrthr) |
+           c_TP3 >= cthr & mlr_TP3 >= mlrthr |
+           c_TP4 >= cthr & mlr_TP4 >= mlrthr)
 
 # pivoting object
 oneomicsLong = oneomics %>% 
@@ -79,9 +78,14 @@ oneomicsLong2 = oneomicsLong %>%
 
 oneomicsLong2$timepoint = str_replace(oneomicsLong2$timepoint, "$", " vs. TP1")
 
+# plots ####
+# they will be created and unified
+# in the next script
+oneomicsplots = list()
+
 # volcano plots
-svglite("plot/oneomicsVolcanoPlot.svg", width = 8, height = 2.5)
-oneomicsLong2 %>%
+#svglite("plot/oneomicsVolcanoPlot.svg", width = 8, height = 2.5)
+oneomicsplots$volcanos = oneomicsLong2 %>%
   ggplot(aes(x = lfc, y = -log10(padj), color = sigStatus)) +
   geom_point2(alpha = 0.25, show.legend = F) +
   facet_wrap(~ timepoint) +
@@ -89,25 +93,32 @@ oneomicsLong2 %>%
   scale_color_manual(values = c("up" = "#E15759",
                                 "down" = "#4E79A7",
                                 "no" = "grey30")) +
-  xlab("Log2(Fold Change)") +
-  ylab("-Log10(Adjusted P)") +
+  xlab("Log<sub>2</sub>(Fold Change)") +
+  ylab("-Log<sub>10</sub>(Adjusted *P*)") +
   ggtitle("C")
-dev.off()
+#dev.off()
 
 # plotting heatmap
 heatColors = colorRamp2(c(-4,0,4), colors = c("#4E79A7", "white", "#E15759"))
 M = oneomics %>% select(contains("lfc")) %>% as.matrix()
 colnames(M) = str_replace(colnames(M), "lfc_", "")
 
-svglite("plot/oneomicsHeatmap.svg", width = 3, height = 4.5)
-Heatmap(M,
-        col = heatColors,
-        border = T,
-        heatmap_legend_param = list(
-          at = c(-6, 0, 6),
-          title = "LFC",
-          border = T))
-dev.off()
+#svglite("plot/oneomicsHeatmap.svg", width = 3, height = 4.5)
+oneomicsplots$ht = Heatmap(M,
+                           col = heatColors,
+                           border = T,
+                           heatmap_legend_param = list(
+                             at = c(-6, 0, 6),
+                             title = "LFC",
+                             border = T,
+                             title_gp = gpar(fontsize = 10, fontfamily = "Arial"), 
+                             labels_gp = gpar(fontsize = 10, fontfamily = "Arial")
+                           ),
+                           column_names_gp = gpar(fontsize = 10, fontfamily = "Arial"))
+#dev.off()
+
+oneomicsplots$drawnht = grid.grabExpr(draw(oneomicsplots$ht,
+                                           heatmap_legend_side = "right"))
 
 # getting number of differentially expressed genes
 oneomicsLong2 %>% filter(timepoint == "TP2 vs. TP1") %>% select(sigStatus) %>% table()
