@@ -1,6 +1,7 @@
 protDynContGenExp.Rproj
 /plot
 /data
+/results
 addCommitPush.sh
 *.Rproj.user
 protDynContGenExp_v2.Rproj
