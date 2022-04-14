@@ -38,8 +38,15 @@ packs = c("tidyverse",
           "preprocessCore",
           "ggpubr",
           "extrafont",
-          "ggtext")
+          "ggtext",
+          "openxlsx",
+          "Rttf2pt1",
+          "remotes")
+
 p_load(char = packs)
+
+# workaround to make extrafont work
+remotes::install_version("Rttf2pt1", version = "1.3.8")
 
 # loading arial font
 font_import(prompt = F)
@@ -61,4 +68,4 @@ mytheme = theme_bw() +
 theme_set(mytheme)
 
 # setting working directory
-setwd("~/gdrive/documentos/doutorado/isb/protDynContGenExp_v2/")
+setwd("~/gdrive/isb/protDynContGenExp_v2/")

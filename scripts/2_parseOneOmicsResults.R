@@ -78,6 +78,14 @@ oneomicsLong2 = oneomicsLong %>%
 
 oneomicsLong2$timepoint = str_replace(oneomicsLong2$timepoint, "$", " vs. TP1")
 
+# saving OneOmics long table
+# shared with only on Apr 13th 2022
+if(!dir.exists("results")){dir.create("results")}
+
+write.xlsx(x = oneomicsLong2,
+           file = "results/20220413_oneomics_long.xlsx",
+           overwrite = T)
+
 # plots ####
 # they will be created and unified
 # in the next script
