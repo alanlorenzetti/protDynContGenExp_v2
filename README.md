@@ -1,4 +1,4 @@
-# Halobacterium salinarum proteome dynamics in the context of mRNA expression
+# _Halobacterium salinarum_ proteome dynamics in the context of mRNA expression
 
 This repository stores the scripts used to perform the following tasks:  
 
