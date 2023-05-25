@@ -106,6 +106,22 @@ oneomicsplots$volcanos = oneomicsLong2 %>%
   ggtitle("C")
 #dev.off()
 
+## interactive version of volcano plot
+## for exploration
+## requires plotly
+# interactiveVolcano = oneomicsLong2 %>%
+#   ggplot(aes(x = lfc, y = -log10(padj), color = sigStatus, label = locus_tag)) +
+#   geom_point(alpha = 0.25, show.legend = F) +
+#   facet_wrap(~ timepoint) +
+#   xlim(c(-6,6)) +
+#   scale_color_manual(values = c("up" = "#E15759",
+#                                 "down" = "#4E79A7",
+#                                 "no" = "grey30")) +
+#   xlab("Log<sub>2</sub>(Fold Change)") +
+#   ylab("-Log<sub>10</sub>(Adjusted *P*)")
+# 
+# ggplotly(p = interactiveVolcano)
+
 # plotting heatmap
 heatColors = colorRamp2(c(-4,0,4), colors = c("#4E79A7", "white", "#E15759"))
 M = oneomics %>% select(contains("lfc")) %>% as.matrix()
@@ -153,4 +169,5 @@ venn$`TP4 vs TP1` = oneomicsLong2 %>%
   select(locus_tag) %>% 
   unlist(use.names = F)
 
-plot(venn(venn), quantities = T)
+# plot(venn(venn), quantities = T)
+

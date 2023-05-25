@@ -11,12 +11,15 @@ if(!require("BiocManager")){install.packages("BiocManager"); library("BiocManage
 # pacman is a nice package manager; make it easier to load and install packages
 if(!require("pacman")){install.packages("pacman"); library("pacman")}
 
-# this one isnt stored neither in cran nor in bioconductor
-# https://github.com/drostlab/orthologr
+# the following is not available at CRAN
+# library(devtools)
+# devtools::install_github("HajkD/metablastr")
+# devtools::install_github("HajkD/orthologr")
 library(orthologr) 
 
-# the following is not available at CRAN
-# library(devtools) ; install_github("allydunham/tblhelpr")
+# this one isnt stored neither in cran nor in bioconductor
+# https://github.com/drostlab/orthologr
+# library(devtools) ; devtools::install_github("allydunham/tblhelpr")
 library(tblhelpr)
 
 # libcurl is required
@@ -45,11 +48,11 @@ packs = c("tidyverse",
 
 p_load(char = packs)
 
-# workaround to make extrafont work
-remotes::install_version("Rttf2pt1", version = "1.3.8")
+# # workaround to make extrafont work
+# remotes::install_version("Rttf2pt1")
 
 # loading arial font
-font_import(prompt = F)
+font_import(prompt = F, pattern = "Arial")
 loadfonts(quiet = T)
 
 # setting ggplot2 theme

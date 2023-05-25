@@ -55,9 +55,17 @@ abundCor = abundDFnormLong %>%
   ylab("Log<sub>10</sub>(Protein Abundance)") +
   xlab("Log<sub>10</sub>(TPM)")
 
+# number of entries with protein 
+# and mRNA levels per time point
+# abundDFnormLong %>% drop_na() %>% group_by(timepoint) %>% summarise(n = n())
+
 # saving previous plot
 ggsave("./plot/abundanceCorrelation.svg",
        plot=abundCor,
+       width = 5, height = 5.5)
+
+ggsave("./plot/abundanceCorrelation.png",
+       plot=abundCor, dpi = 600,
        width = 5, height = 5.5)
 
 # oneomics relative changes vs. deseq2 relative changes ####
@@ -164,3 +172,4 @@ relChPlot = ggarrange(plotlist = p, ncol = 3, nrow = 1)
 ggsave("./plot/relativeChangeCorrelation.svg",
        plot=relChPlot,
        width = 7, height = 3)
+

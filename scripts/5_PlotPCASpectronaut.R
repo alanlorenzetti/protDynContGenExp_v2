@@ -71,6 +71,11 @@ svglite(file = "plot/figureSpectronaut.svg",
 spectronautplots$panel
 dev.off()
 
+png(file = "plot/figureSpectronaut.png",
+        width = 7, height = 5, units = "in", res = 600)
+spectronautplots$panel
+dev.off()
+
 # plotting explained variance
 cumuvarplot = expVar %>%
   pivot_longer(cols = contains("exp"),
