@@ -103,7 +103,7 @@ oneomicsplots$volcanos = oneomicsLong2 %>%
                                 "no" = "grey30")) +
   xlab("Log<sub>2</sub>(Fold Change)") +
   ylab("-Log<sub>10</sub>(Adjusted *P*)") +
-  ggtitle("C")
+  ggtitle("")
 #dev.off()
 
 ## interactive version of volcano plot

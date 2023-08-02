@@ -68,6 +68,14 @@ ggsave("./plot/abundanceCorrelation.png",
        plot=abundCor, dpi = 600,
        width = 5, height = 5.5)
 
+ggsave("./plot/abundanceCorrelation.tiff",
+       plot=abundCor, dpi = 600, compression = "lzw",
+       width = 5, height = 5.5)
+
+ggsave("./plot/abundanceCorrelation.pdf",
+       plot=abundCor,
+       width = 5, height = 5.5)
+
 # oneomics relative changes vs. deseq2 relative changes ####
 # parsing oneomics dataset
 oneomicsLong2Parsed = oneomicsLong2 %>% 

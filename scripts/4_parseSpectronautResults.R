@@ -87,12 +87,12 @@ legendCols = list(
                  "TP2" = "#F28E2B",
                  "TP3" = "#4E79A7",
                  "TP4" = "#59A14F"),
-  bioReps = c("BR1" = adjustcolor(col = "#76B7B2", alpha.f = 0.2),
-              "BR2" = adjustcolor(col = "#76B7B2", alpha.f = 0.5),
-              "BR3" = adjustcolor(col = "#76B7B2", alpha.f = 1)),
-  runs = c("r01" = adjustcolor(col = "#EDC948", alpha.f = 0.2),
-           "r02" = adjustcolor(col = "#EDC948", alpha.f = 0.5),
-           "r03" = adjustcolor(col = "#EDC948", alpha.f = 1))
+  bioReps = c("BR1" = "#e3f0ef",
+              "BR2" = "#badad8",
+              "BR3" = "#76B7B2"),
+  runs = c("r01" = "#fbf4da",
+           "r02" = "#f5e3a3",
+           "r03" = "#EDC948")
 )
 
 # defining annotations

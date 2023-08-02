@@ -59,7 +59,7 @@ spectronautplots$pca = pcaAugDf %>%
   scale_shape_discrete(name="Bio. Replicate") +
   guides(colour = guide_legend(order = 1), 
          shape = guide_legend(order = 2)) +
-  ggtitle("A")
+  ggtitle("")
 
 # arranging panel of pca and heatmap
 spectronautplots$panel = ggarrange(plotlist = list(spectronautplots$pca,
@@ -71,8 +71,16 @@ svglite(file = "plot/figureSpectronaut.svg",
 spectronautplots$panel
 dev.off()
 
-png(file = "plot/figureSpectronaut.png",
-        width = 7, height = 5, units = "in", res = 600)
+ggsave("plot/figureSpectronaut.png",
+       plot=spectronautplots$panel, dpi = 600,
+       width = 7, height = 5)
+
+ggsave("plot/figureSpectronaut.tiff",
+       plot=spectronautplots$panel, dpi = 600, compression = "lzw",
+       width = 7, height = 5)
+
+pdf(file = "plot/figureSpectronaut.pdf",
+    width = 7, height = 5, family = "ArialMT")
 spectronautplots$panel
 dev.off()
 

@@ -30,7 +30,7 @@ oneomicsplots$pca = pcaOneOmics %>%
                                 "TP4" = "#59A14F")) +
   guides(colour = guide_legend(order = 1), 
          shape = guide_legend(order = 2)) +
-  ggtitle("A")
+  ggtitle("")
 #dev.off()
 
 # arranging a panel
@@ -47,3 +47,14 @@ svglite(file = "plot/figureOneOmics.svg", width = 7, height = 8)
 oneomicsplots$panel
 dev.off()
 
+ggsave("plot/figureOneOmics.png",
+       plot=oneomicsplots$panel, dpi = 600,
+       width = 7, height = 8)
+
+ggsave("plot/figureOneOmics.tiff",
+       plot=oneomicsplots$panel, dpi = 600, compression = "lzw",
+       width = 7, height = 8)
+
+pdf(file = "plot/figureOneOmics.pdf", width = 7, height = 8)
+oneomicsplots$panel
+dev.off()
